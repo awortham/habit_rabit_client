@@ -8,7 +8,8 @@ module HabitRabbitClient
 
     it 'finds an event by id number' do
       event = @client.find_event(1)
-      expect(event.name).to eq()
+      expect(event['completed']).to eq(true)
+      expect(event['habit_id']).to eq(1)
     end
 
     it 'finds all events' do

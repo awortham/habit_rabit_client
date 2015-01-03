@@ -7,7 +7,7 @@ module HabitRabbitClient
     end
     it 'finds a habit by id number' do
       habit = @client.find_habit(1)
-      expect(habit.name).to eq()
+      expect(habit['name']).to eq('first exercise')
     end
 
     it 'finds all habits' do

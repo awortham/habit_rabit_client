@@ -11,7 +11,7 @@ module HabitRabbitClient
 
     def find_habit(id)
       data = JSON.parse( @connection.get("/api/v1/habits/#{id}.json").body )
-      Habit.new(data)
+      # Habit.new(data)
     end
 
     def all_habits
