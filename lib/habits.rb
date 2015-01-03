@@ -1,14 +1,21 @@
-#!/usr/bin/env ruby
+require 'faraday'
+require 'json'
 
-module Habits
-  class Streak
+module HabitRabbitClient
+  class Habit
+
+    def initialize(host)
+      @connection = Faraday.new(:url => host)
+    end
     #list of habits
-    def index
-      @habits = Habit.all
+
+    def find_habit(id)
+      data = JSON.parse( @connection.get("/api/v1/habits/#{id}.json").body )
+      Habit.new(data)
     end
 
-    def show
-      respond_with Habit.find(params[:id])
+    def all_habits
+      data = JSON.parse( @connection.get("/api/v1/habits.json").body )
     end
 
     #streak information
@@ -18,8 +25,8 @@ module Habits
     end
 
     #see status of each habit
-    def event_requires_update?(habit)
-      habit.events.empty? || habit.events.last.created_at.day < Date.yesterday.day
-    end    
+    def status
+      @status = event_require_update(@habit)
+    end
   end
 end
