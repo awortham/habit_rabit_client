@@ -9,7 +9,6 @@ module HabitRabbitClient
 
     def find_event(id)
       data = JSON.parse( @connection.get("/api/v1/events/#{id}.json").body )
-      # Habit.new(data)
     end
 
     def all_events
